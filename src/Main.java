@@ -6,7 +6,7 @@ import exceptions.InvalidMeasurementException;
 import services.TankService;
 import util.CsvLoader;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -33,6 +33,7 @@ public class Main {
         boolean running = true;
 
         while (running) {
+            clearScreen();
             showMainMenu();
 
             int opcao = readInt(sc);
@@ -42,6 +43,7 @@ public class Main {
                     boolean calculating = true;
 
                     while (calculating) {
+                        clearScreen();
                         showCalculationMenu();
                         int tankOption = readInt(sc);
                         Tank selectedTank = null;
@@ -98,6 +100,7 @@ public class Main {
                                     System.out.println("-----------------------------");
                                     System.out.println(r);
                                 }
+                                pause(sc);
                             }
 
                         } else if (next == 3) {
@@ -149,5 +152,16 @@ public class Main {
         int value = sc.nextInt();
         sc.nextLine();
         return value;
+    }
+
+    public static void clearScreen() {
+        for (int i = 0; i < 60; i++) {
+            System.out.println();
+        }
+    }
+
+    public static void pause(Scanner sc) {
+        System.out.println("\nPressione ENTER para continuar...");
+        sc.nextLine();
     }
 }
