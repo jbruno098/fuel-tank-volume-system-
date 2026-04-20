@@ -4,8 +4,8 @@ import entity.enums.FuelType;
 
 public class Tank {
 
-    private Long id;
-    private Double capacity;
+    private int id;
+    private Integer capacity;
     private FuelType fuelType;
 
     // HAS
@@ -13,18 +13,18 @@ public class Tank {
 
     public Tank() {}
 
-    public Tank(Long id, Double capacity, FuelType fuelType,MeasurementTable table) {
+    public Tank(int id, Integer capacity, FuelType fuelType,MeasurementTable table) {
         this.id = id;
         this.capacity = capacity;
         this.fuelType = fuelType;
         this.table = table;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public Double getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 

@@ -1,40 +1,41 @@
+import entity.MeasurementTable;
+import entity.Tank;
+import entity.enums.FuelType;
+import services.TankService;
+import util.CsvLoader;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 
 public class Main {
     public static void main(String[] args) {
 
-        Map<Integer, Integer> table_tank_15000 = new HashMap<>();
-        Map<Integer, Integer> table_tank_7500 = new HashMap<>();
+        Scanner sc = new Scanner(System.in);
+        CsvLoader csv = new CsvLoader();
+        TankService service = new TankService();
 
-        String table = "resources/tank_7500.csv";
-        String table2 =  "resources/tank_15000.csv";
-        loadTable(table2, table_tank_15000);
-        loadTable(table, table_tank_7500);
+        // TABELAS
+        MeasurementTable table7500 = csv.load("resources/tank_7500.csv");
+        MeasurementTable table15000 = csv.load("resources/tank_15000.csv");
 
-        System.out.println("Teste 90cm (tanque 15.000L) -> " + table_tank_15000.get(90) + " litros");
-        System.out.println("teste 90cm (tanque 7500L -> " + table_tank_7500.get(90) + " litros");
-    }
+        // TANQUES
+        Tank dieselS500 = new Tank(1,15000, FuelType.DIESEL_S500, table15000);
+        Tank gasolina = new Tank(2,15000, FuelType.GASOLINA_COMUN, table15000);
+        Tank etanol = new Tank(3,7500, FuelType.ETANOL, table7500);
+        Tank dieselS10 = new Tank(4,7500, FuelType.DIESEL_S10, table7500);
 
+        int teste1 = service.calculateLiters(gasolina, 90);
+        int teste2 = service.calculateLiters(etanol, 90);
+        int teste3 = service.calculateLiters(etanol, 500); // exceção
 
-    public static void loadTable(String path, Map<Integer, Integer> map) {
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String linha;
-            br.readLine(); // pula primeira linha
+        System.out.println(teste1);
+        System.out.println(teste2);
 
-            while ((linha = br.readLine()) != null) {
-                String[] colunas = linha.split(",");
-                Integer cm = Integer.parseInt(colunas[0]);
-                Integer litros = Integer.parseInt(colunas[1]);
-                map.put(cm, litros);
-            }
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        sc.close();
     }
 }
