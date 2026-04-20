@@ -30,7 +30,7 @@ public class MeasurementResult {
 
     @Override
     public String toString() {
-        return "Tanque: " + tank +
+        return "Tanque: " + tank.getFuelType() +
                 "\nCentímetros: " + cm +
                 "\nLitragem: " + liters +
                 "\nData/Hora: " + moment;

@@ -1,3 +1,4 @@
+import entity.MeasurementResult;
 import entity.MeasurementTable;
 import entity.Tank;
 import entity.enums.FuelType;
@@ -5,6 +6,8 @@ import exceptions.InvalidMeasurementException;
 import services.TankService;
 import util.CsvLoader;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -31,7 +34,8 @@ public class Main {
 
         while (running) {
             showMainMenu();
-            int opcao = sc.nextInt();
+
+            int opcao = readInt(sc);
 
             switch (opcao) {
                 case 1:
@@ -39,7 +43,7 @@ public class Main {
 
                     while (calculating) {
                         showCalculationMenu();
-                        int tankOption = sc.nextInt();
+                        int tankOption = readInt(sc);
                         Tank selectedTank = null;
 
                         switch (tankOption) {
@@ -56,13 +60,16 @@ public class Main {
                             case 4:
                                 selectedTank = dieselS10;
                                 break;
+                            case 5:
+                                calculating = false;
+                                continue;
                             default:
                                 System.out.println("Tanque inválido.");
                                 continue;
                         }
 
                         System.out.print("\nDigite a medição em CM: ");
-                        int cm = sc.nextInt();
+                        int cm = readInt(sc);
 
                         try {
                             int liters = service.calculateLiters(selectedTank, cm);
@@ -74,14 +81,25 @@ public class Main {
 
                         System.out.println("------------------------------------");
                         System.out.println("\n [1] - Nova consulta");
-                        System.out.println(" [2] - Menu principal");
+                        System.out.println(" [2] - Imprimir resultados");
                         System.out.println(" [3] - Encerrar");
-                        System.out.print("Escolha: ");
+                        System.out.print("\nEscolha: ");
 
-                        int next = sc.nextInt();
+                        int next = readInt(sc);
 
                         if (next == 2) {
-                            calculating = false;
+                            List<MeasurementResult> list = service.getResults();
+
+                            if (list.isEmpty()) {
+                                System.out.println("Nenhum resultado registrado.");
+                            } else {
+
+                                for (MeasurementResult r : list) {
+                                    System.out.println("-----------------------------");
+                                    System.out.println(r);
+                                }
+                            }
+
                         } else if (next == 3) {
                             calculating = false;
                             running = false;
@@ -119,6 +137,17 @@ public class Main {
         System.out.println(" [2] Gasolina Comum");
         System.out.println(" [3] Etanol");
         System.out.println(" [4] Diesel S10");
+        System.out.println(" [5] Voltar");
         System.out.print("\n Escolha um Tanque: ");
+    }
+
+    public static int readInt(Scanner sc) {
+        while (!sc.hasNextInt()) {
+            System.out.print("Entrada inválida. Digite apenas números: ");
+            sc.nextLine();
+        }
+        int value = sc.nextInt();
+        sc.nextLine();
+        return value;
     }
 }
