@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import services.HistoryFileService;
 import services.TankService;
 import util.CsvLoader;
 
@@ -18,6 +19,7 @@ public class FuelTankApp extends Application {
 
         CsvLoader csv = new CsvLoader();
         TankService service = new TankService();
+        HistoryFileService historyFileService = new HistoryFileService();
 
         // TABELAS
         MeasurementTable table7500 = csv.load("resources/tank_7500.csv");
@@ -93,6 +95,7 @@ public class FuelTankApp extends Application {
 
                 String record = tankComboBox.getValue() + " - " + cm + " cm = " + liters + " litros";
                 historyListView.getItems().add(record);
+                historyFileService.saveMeasurement(tankComboBox.getValue(), cm, liters);
 
             } catch (NumberFormatException ex) {
                 resultLabel.setText("Resultado: digite um número inteiro válido.");
