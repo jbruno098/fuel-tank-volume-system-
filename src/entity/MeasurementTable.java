@@ -17,7 +17,7 @@ public class MeasurementTable {
         measures.put(cm, litros);
     }
 
-    public Integer findLiters(Integer cm) {
+    public Integer searchLiters(Integer cm) {
         return  measures.get(cm);
     }
 }
