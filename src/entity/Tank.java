@@ -8,12 +8,16 @@ public class Tank {
     private Double capacity;
     private FuelType fuelType;
 
+    // HAS
+    private MeasurementTable table;
+
     public Tank() {}
 
-    public Tank(Long id, Double capacity, FuelType fuelType) {
+    public Tank(Long id, Double capacity, FuelType fuelType,MeasurementTable table) {
         this.id = id;
         this.capacity = capacity;
         this.fuelType = fuelType;
+        this.table = table;
     }
 
     public Long getId() {
@@ -26,5 +30,9 @@ public class Tank {
 
     public FuelType getFuelType() {
         return fuelType;
+    }
+
+    public MeasurementTable getTable() {
+        return table;
     }
 }
