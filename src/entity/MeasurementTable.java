@@ -1,5 +1,7 @@
 package entity;
 
+import exceptions.InvalidMeasurementException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +20,10 @@ public class MeasurementTable {
     }
 
     public Integer searchLiters(Integer cm) {
-        return  measures.get(cm);
+        if (!measures.containsKey(cm)) {
+            throw new InvalidMeasurementException(
+                    "Medição inválida: " + cm + " cm não encontrada na tabela.");
+        }
+        return measures.get(cm);
     }
 }
