@@ -1,3 +1,5 @@
+package console;
+
 import entity.MeasurementResult;
 import entity.MeasurementTable;
 import entity.Tank;

@@ -1,3 +1,5 @@
+package app;
+
 import entity.enums.FuelType;
 import entity.MeasurementTable;
 import entity.Tank;

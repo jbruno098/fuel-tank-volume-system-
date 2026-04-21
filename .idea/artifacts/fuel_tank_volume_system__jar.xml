@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="fuel-tank-volume-system-:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/fuel_tank_volume_system__jar</output-path>
+    <root id="root">
+      <element id="archive" name="fuel-tank-volume-system-.jar">
+        <element id="module-output" name="fuel-tank-volume-system-" />
+      </element>
+      <element id="library" level="project" name="lib" />
+    </root>
+  </artifact>
+</component>
